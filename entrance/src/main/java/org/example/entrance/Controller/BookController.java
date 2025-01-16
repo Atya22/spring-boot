@@ -1,11 +1,10 @@
-package org.example.spring_boot_project_structure.Controller;
+package org.example.entrance.Controller;
 
 
-import org.example.spring_boot_project_structure.Model.Book;
-import org.example.spring_boot_project_structure.Service.BookService;
+import org.example.entrance.Model.Book;
+import org.example.entrance.Service.BookService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController

@@ -1,10 +1,10 @@
-package org.example.spring_boot_project_structure;
+package org.example.entrance;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBootProjectStructureApplicationTests {
+class EntranceApplicationTests {
 
 	@Test
 	void contextLoads() {

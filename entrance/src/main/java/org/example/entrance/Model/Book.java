@@ -1,4 +1,4 @@
-package org.example.spring_boot_project_structure.Model;
+package org.example.entrance.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

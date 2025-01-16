@@ -1,7 +1,6 @@
-package org.example.spring_boot_project_structure.Service;
+package org.example.entrance.Service;
 
-import org.example.spring_boot_project_structure.Model.Book;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.example.entrance.Model.Book;
 
 import java.util.Arrays;
 import java.util.List;

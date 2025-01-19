@@ -1,4 +1,4 @@
-package com.sp.library.controller.mapper;
+package com.sp.library.mapper;
 
 import com.sp.library.dao.entity.UserEntity;
 import com.sp.library.dto.UserRequestDto;

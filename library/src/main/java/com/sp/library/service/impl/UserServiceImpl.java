@@ -1,6 +1,6 @@
 package com.sp.library.service.impl;
 
-import com.sp.library.controller.mapper.UserMapper;
+import com.sp.library.mapper.UserMapper;
 import com.sp.library.dao.entity.UserEntity;
 import com.sp.library.dao.repository.UserRepository;
 import com.sp.library.dto.UserRequestDto;
@@ -9,7 +9,6 @@ import com.sp.library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -1,12 +1,12 @@
 package com.sp.library.mapper;
 
 import com.sp.library.dao.entity.UserEntity;
-import com.sp.library.dto.UserRequestDto;
 import com.sp.library.dto.UserResponseDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserMapper {
@@ -23,5 +23,15 @@ public class UserMapper {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    public UserResponseDto entityToDto(UserEntity userEntity){
+        return UserResponseDto.builder()
+                .bday(userEntity.getBday())
+                .fname(userEntity.getFname())
+                .lname(userEntity.getLname())
+                .gender(userEntity.getGender())
+                .isActive(userEntity.getIsActive())
+                .build();
     }
 }

@@ -28,6 +28,8 @@ public class UserEntity {
     private LocalDate bday;
     @Builder.Default
     private  Boolean isActive = false;
+    @Builder.Default
+    private Boolean isDeleted = false;
     private Gender gender;
     @CreationTimestamp
     private LocalDateTime createdAt;

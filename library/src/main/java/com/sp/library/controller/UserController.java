@@ -1,5 +1,6 @@
 package com.sp.library.controller;
 
+import com.sp.library.dao.repository.UserRepository;
 import com.sp.library.dto.UserRequestDto;
 import com.sp.library.dto.UserResponseDto;
 import com.sp.library.service.UserService;
@@ -13,14 +14,31 @@ import java.util.List;
 @RequestMapping("api/v1/user")
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @PostMapping
-        public void addUser(@RequestBody UserRequestDto dto){
+    public void addUser(@RequestBody UserRequestDto dto) {
         userService.addUser(dto);
     }
 
     @GetMapping
-    public List<UserResponseDto> getUsers(){
+    public List<UserResponseDto> getUsers() {
         return userService.getUsers();
     }
-}
+
+    @GetMapping("{id}")
+    public UserResponseDto getUser(@PathVariable Long id) {
+       return userService.getUser(id);
+    }
+
+    @PostMapping("set-is-deleted-true")
+    public void updatedSetIsDeletedTrue(){
+        var userList = userRepository.findAllByIsDeleted(false);
+        for(var user : userList) {
+            user.setIsDeleted(true);
+            user.setIsActive(false);
+        }
+        userRepository.saveAll(userList);
+        }
+    }
+

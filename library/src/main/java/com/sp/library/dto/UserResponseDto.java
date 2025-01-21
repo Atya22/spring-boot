@@ -8,6 +8,8 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserResponseDto extends UserRequestDto {
     private Boolean isActive;
 }

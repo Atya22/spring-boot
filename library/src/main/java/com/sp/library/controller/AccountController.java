@@ -3,11 +3,14 @@ package com.sp.library.controller;
 import com.sp.library.dao.entity.AccountEntity;
 import com.sp.library.dao.repository.AccountRepository;
 import com.sp.library.dto.AccountRequestDto;
+import com.sp.library.mapper.AccountMapper;
 import com.sp.library.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.image.VolatileImage;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,6 +20,7 @@ import java.util.List;
 public class AccountController {
     private final AccountService accountService;
     private final AccountRepository accountRepository;
+    private final AccountMapper accountMapper;
 
 
 @PostMapping
@@ -31,5 +35,17 @@ public class AccountController {
     @GetMapping("{id}")
     public AccountEntity getAccount(@PathVariable("id") Long id){
         return accountRepository.findById(id).get();
+    }
+
+    @GetMapping("select")
+    public AccountRequestDto getAccountSelect(@RequestParam(value = "balance", required = false) Double balance){
+         return accountMapper.entityToDto(accountRepository.findByBalance(balance).get());
+    }
+
+    @PatchMapping("update")
+    public void updateAccountByNumber (@RequestParam(value = "id", required = false) Long id,
+                                       @RequestParam(value = "balance", required = false) Double balance){
+        accountRepository.updateAccountByNumber(id, balance);
+
     }
 }

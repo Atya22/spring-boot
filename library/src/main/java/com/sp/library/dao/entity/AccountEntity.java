@@ -24,7 +24,7 @@ public class AccountEntity {
 
     private String accountNumber;
 
-    private BigDecimal balance;
+    private Double balance;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

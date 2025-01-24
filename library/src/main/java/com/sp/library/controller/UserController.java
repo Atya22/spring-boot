@@ -3,6 +3,7 @@ package com.sp.library.controller;
 import com.sp.library.dao.repository.UserRepository;
 import com.sp.library.dto.UserRequestDto;
 import com.sp.library.dto.UserResponseDto;
+import com.sp.library.mapper.UserMapper;
 import com.sp.library.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @PostMapping
     public void addUser(@RequestBody UserRequestDto dto) {
@@ -40,5 +42,12 @@ public class UserController {
         }
         userRepository.saveAll(userList);
         }
+
+        @PostMapping("update/{id}")
+    public Long updateUser(@PathVariable Long id, @RequestBody UserRequestDto dto){
+        return userService.updateUser(id, dto);
+        }
+
+//       put, patch, update
     }
 

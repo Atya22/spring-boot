@@ -10,4 +10,5 @@ public interface UserService {
     void  addUser(UserRequestDto dto);
     List<UserResponseDto> getUsers();
     UserResponseDto getUser(Long id);
+    Long updateUser(Long id, UserRequestDto dto);
 }

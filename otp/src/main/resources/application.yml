@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: advanced
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: your_user
+    password: your_password
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8080

@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class SmsClient {
-
-    public void smsSender(String msisdn, String code) {
-        log.info("Otp code: {}, msisdn: {}", code, msisdn);
+    public void smsSender(String msisdn, String otp){
+        log.info("Otp code: {}, msisdn: {}", msisdn, otp);
     }
 }

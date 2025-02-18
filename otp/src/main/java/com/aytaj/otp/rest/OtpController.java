@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class OtpController {
-    private final OtpService otpService;
+private final OtpService otpService;
 
     @PostMapping
-    public SendOtpResponse sendOtp(@RequestBody SendOtpRequest sendOtpRequest) {
+    public SendOtpResponse sendOtp(@RequestBody SendOtpRequest sendOtpRequest){
         return otpService.sendOtp(sendOtpRequest);
     }
 }

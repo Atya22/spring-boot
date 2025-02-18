@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface OtpRepository extends JpaRepository<OtpEntity, Long> {
 
-    Optional<OtpEntity> findByMsisdn(String msisdn);
+    Optional <OtpEntity> findByMsisdn(String msisdn);
 }

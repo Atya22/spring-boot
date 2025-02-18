@@ -20,17 +20,14 @@ public class OtpEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String otpCode;
     private String msisdn;
     private Integer SmsCount;
-
     /**
      * The expiration time of the OTP after which it is no longer valid.
      */
     private LocalDateTime expirationTime;
     private OtpStatus otpStatus;
-
     /**
      * The time when the user is blocked from requesting a new OTP due to multiple failed attempts.
      */

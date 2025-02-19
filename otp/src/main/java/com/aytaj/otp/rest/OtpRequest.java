@@ -1,4 +1,4 @@
 package com.aytaj.otp.rest;
 
-public record SendOtpRequest(String msisdn) {
+public record OtpRequest(String msisdn) {
 }

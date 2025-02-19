@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
 
-public record SendOtpResponse(OtpStatus otpStatus,
-                              @JsonIgnore LocalDateTime expireTime,
-                              @JsonIgnore LocalDateTime blockTime) {
+public record OtpResponse(OtpStatus otpStatus,
+                          @JsonIgnore LocalDateTime expireTime,
+                          @JsonIgnore LocalDateTime blockTime) {
 }

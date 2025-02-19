@@ -23,6 +23,7 @@ public class OtpEntity {
     private String otpCode;
     private String msisdn;
     private Integer SmsCount;
+    private Integer verifyCount;
     /**
      * The expiration time of the OTP after which it is no longer valid.
      */

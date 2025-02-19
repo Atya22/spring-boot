@@ -4,8 +4,8 @@ package com.aytaj.otp.service.impl;
 import com.aytaj.otp.client.dto.SmsClient;
 import com.aytaj.otp.dao.entity.OtpEntity;
 import com.aytaj.otp.dao.repository.OtpRepository;
-import com.aytaj.otp.rest.SendOtpRequest;
-import com.aytaj.otp.rest.SendOtpResponse;
+import com.aytaj.otp.rest.OtpRequest;
+import com.aytaj.otp.rest.OtpResponse;
 import com.aytaj.otp.service.OtpService;
 import com.aytaj.otp.util.enums.OtpStatus;
 import com.aytaj.otp.util.helper.OtpGenerator;
@@ -24,9 +24,9 @@ public class OtpServiceImpl implements OtpService {
     private final OtpServiceHelper otpServiceHelper;
 
     @Override
-    public SendOtpResponse sendOtp(SendOtpRequest sendOtpRequest) {
-        if (otpRepository.findByMsisdn(sendOtpRequest.msisdn()).isPresent()) {
-            var entity = otpRepository.findByMsisdn(sendOtpRequest.msisdn()).orElseThrow();
+    public OtpResponse sendOtp(OtpRequest otpRequest) {
+        if (otpRepository.findByMsisdn(otpRequest.msisdn()).isPresent()) {
+            var entity = otpRepository.findByMsisdn(otpRequest.msisdn()).orElseThrow();
             if (entity.getOtpStatus() == OtpStatus.BLOCK) {
                 if (entity.getBlockTime().isAfter(LocalDateTime.now())) {
                     return sendOtpResponse(entity);
@@ -41,12 +41,12 @@ public class OtpServiceImpl implements OtpService {
                 }
             }
         } else {
-            return sendOtpResponse(sendOtpFirstTime(sendOtpRequest.msisdn()));
+            return sendOtpResponse(sendOtpFirstTime(otpRequest.msisdn()));
         }
     }
 
 
-    private SendOtpResponse removeFromBlock(OtpEntity otpEntity) {
+    private OtpResponse removeFromBlock(OtpEntity otpEntity) {
         otpServiceHelper.removeEntity(otpEntity);
         var entity = sendOtpFirstTime(otpEntity.getMsisdn());
         smsClient.smsSender(entity.getMsisdn(), entity.getOtpCode());
@@ -54,7 +54,7 @@ public class OtpServiceImpl implements OtpService {
 
     }
 
-    private SendOtpResponse setBlock(OtpEntity entity) {
+    private OtpResponse setBlock(OtpEntity entity) {
         entity.setOtpStatus(OtpStatus.BLOCK);
         entity.setBlockTime(LocalDateTime.now().plusMinutes(5));
         entity.setExpirationTime(null);
@@ -70,6 +70,7 @@ public class OtpServiceImpl implements OtpService {
                 .SmsCount(1)
                 .otpStatus(OtpStatus.PENDING)
                 .expirationTime(LocalDateTime.now().plusMinutes(5))
+                .verifyCount(0)
                 .build();
 
         otpRepository.save(entity);
@@ -91,7 +92,7 @@ public class OtpServiceImpl implements OtpService {
 
     }
 
-    private SendOtpResponse sendOtpResponse(OtpEntity entity) {
-        return new SendOtpResponse(entity.getOtpStatus(), entity.getExpirationTime(), entity.getBlockTime());
+    private OtpResponse sendOtpResponse(OtpEntity entity) {
+        return new OtpResponse(entity.getOtpStatus(), entity.getExpirationTime(), entity.getBlockTime());
     }
 }

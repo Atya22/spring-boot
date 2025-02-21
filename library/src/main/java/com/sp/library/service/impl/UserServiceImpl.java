@@ -1,5 +1,7 @@
 package com.sp.library.service.impl;
 
+import com.sp.library.Exception.UserNotFoundException;
+import com.sp.library.Exception.UserRegisteredBeforeException;
 import com.sp.library.mapper.UserMapper;
 import com.sp.library.dao.entity.UserEntity;
 import com.sp.library.dao.repository.UserRepository;
@@ -7,6 +9,7 @@ import com.sp.library.dto.UserRequestDto;
 import com.sp.library.dto.UserResponseDto;
 import com.sp.library.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(UserRequestDto dto) {
+        if (userRepository.findByLname(dto.getLname()).isPresent()) {
+            throw new UserRegisteredBeforeException("lname used before");
+        }
         var entity = UserEntity.builder()
                 .fname(dto.getFname())
                 .lname(dto.getLname())
@@ -29,6 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable("users")
     public List<UserResponseDto> getUsers() {
         var userEntityList = userRepository.findAll();
         return userMapper.entityListToDtoList(userEntityList);
@@ -47,21 +54,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long updateUser(Long id, UserRequestDto dto) {
-        var optionalUserEntity = userRepository.findById(id);
-        if (optionalUserEntity.isPresent()) {
-            var user = optionalUserEntity.get();
-            if (dto.getBday() != null)
-                user.setBday(dto.getBday());
-            if (dto.getFname() != null)
-                user.setFname(dto.getFname());
-            if (dto.getLname() != null)
-                user.setLname(dto.getLname());
-            if (dto.getGender() != null)
-                user.setGender(dto.getGender());
-
-            userRepository.save(user);
-            return id;
-        }
-        return 0L;
+        var user = userRepository.findById(id)
+                .orElseThrow(
+                        () -> new UserNotFoundException("User not found with given id: {} " + id.toString())
+                );
+        user.setBday(dto.getBday());
+        user.setFname(dto.getFname());
+        user.setLname(dto.getLname());
+        user.setGender(dto.getGender());
+        userRepository.save(user);
+        return id;
     }
 }

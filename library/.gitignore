@@ -36,6 +36,8 @@ out/
 ### VS Code ###
 .vscode/
 
+.DS_Store
+
 /book/
 /entrance/
 /BakuBookCenter/
@@ -43,3 +45,4 @@ out/
 /Libraf/
 /customer/
 /Bank/
+/otp/

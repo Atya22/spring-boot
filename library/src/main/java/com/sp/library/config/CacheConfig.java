@@ -1,9 +1,9 @@
-package com.sp.library.config;
-
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-@EnableCaching
-public class CacheConfig {
-}
+//package com.sp.library.config;
+//
+//import org.springframework.cache.annotation.EnableCaching;
+//import org.springframework.context.annotation.Configuration;
+//
+//@EnableCaching
+//@Configuration
+//public class CacheConfig {
+//}

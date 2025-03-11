@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface UserService {
     void  addUser(UserRequestDto dto);
     List<UserResponseDto> getUsers();

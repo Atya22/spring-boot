@@ -5,8 +5,29 @@ spring:
     url: jdbc:postgresql://localhost:5433/postgres
     username: your_user
     password: your_password
+    dbcp2:
+      cache-state:
   jpa:
     hibernate:
       ddl-auto: update
+  data:
+    redis:
+      host: localhost
+      port: 6379               # Redis server port (default is 6379)
+      password:   # Optional: Redis password (if required)
+      timeout: 60000ms          # Optional: connection timeout
+      jedis:
+        pool:
+          max-active: 10       # Optional: Maximum number of connections in the pool
+          max-wait: 1000ms     # Optional: Maximum time to wait for a connection
+          min-idle: 5          # Optional: Minimum number of idle connections
+          max-idle: 10         # Optional: Maximum number of idle connections
+  cache:
+    type: redis # this makes sure that we use redis as cache, not the default which is device memory
+
+  # Optional: Lettuce connection pool (if using Lettuce instead of Jedis)
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
 server:
   port: 8081

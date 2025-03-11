@@ -1,4 +1,4 @@
-package com.sp.library.Exception;
+package com.sp.library.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {

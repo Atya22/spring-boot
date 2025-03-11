@@ -5,19 +5,13 @@ import com.sp.library.dao.repository.AccountRepository;
 import com.sp.library.dto.AccountRequestDto;
 import com.sp.library.mapper.AccountMapper;
 import com.sp.library.service.AccountService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.image.VolatileImage;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 //@AllArgsConstructor
@@ -30,7 +24,7 @@ public class AccountController {
 
 
 @PostMapping
-    public void addAccount (@Valid @RequestBody AccountRequestDto dto){
+    public void addAccount (@RequestBody AccountRequestDto dto){
     accountService.addAccount(dto);
 }
 
